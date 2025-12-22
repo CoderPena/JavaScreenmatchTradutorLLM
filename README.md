@@ -1,4 +1,4 @@
-# Screenmatch – Tradução Automática de Séries
+# Screenmatch – Tradução Automática de Sinópses de Séries
 
 Este projeto é uma aplicação Java desenvolvida com Spring Boot para consumo de dados de séries a partir de uma API externa, com foco na **tradução automática de sinopses do inglês (EN) para o português brasileiro (PT-BR)**.
 
