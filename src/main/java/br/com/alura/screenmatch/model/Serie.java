@@ -2,6 +2,8 @@ package br.com.alura.screenmatch.model;
 
 import br.com.alura.screenmatch.service.ConsultaTradutor;
 import com.fasterxml.jackson.annotation.JsonAlias;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.util.Optional;
 import java.util.OptionalDouble;
