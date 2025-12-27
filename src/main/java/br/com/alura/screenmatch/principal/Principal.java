@@ -4,8 +4,10 @@ import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.model.DadosTemporada;
 import br.com.alura.screenmatch.model.Episodio;
 import br.com.alura.screenmatch.model.Serie;
+import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,6 +21,12 @@ public class Principal {
     private final String API_KEY = "&apikey=68d3e477";
 
     private List<DadosSerie> dadosSerie = new ArrayList<>();
+
+    private SerieRepository repositorio;
+
+    public Principal(SerieRepository repositorio) {
+        this.repositorio = repositorio;
+    }
 
     public void exibeMenu() {
         var menu = """
@@ -56,8 +64,10 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSerie.add(dados);
-        System.out.println(dados);
+        Serie serie = new Serie(dados);
+//        dadosSerie.add(dados);
+        repositorio.save(serie);
+
     }
 
     private DadosSerie getDadosSerie() {

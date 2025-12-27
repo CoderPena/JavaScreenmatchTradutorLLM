@@ -4,6 +4,8 @@ import br.com.alura.screenmatch.service.ConsultaTradutor;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
 
@@ -22,6 +24,9 @@ public class Serie {
     private String sinopse;
     private String porter;
     private String atores;
+
+    @Transient
+    private List<Episodio> episodios = new ArrayList<>();
 
     public Serie(DadosSerie dadosSerie) {
         this.titulo = dadosSerie.titulo();

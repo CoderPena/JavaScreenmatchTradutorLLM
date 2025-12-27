@@ -1,0 +1,29 @@
+[33mcommit bc508407655c56de78f61927f059a5690643f963[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/series-persistence[m[33m, [m[1;31morigin/feature/series-persistence[m[33m)[m
+Author: Marcelo Pena <coder.pena@gmail.com>
+Date:   Wed Dec 24 10:40:15 2025 -0300
+
+    Implementado JPA na classe Serie.
+
+[33mcommit 9710febb7df8c295d39eb55919c83a6aaef38b0c[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Marcelo Pena <coder.pena@gmail.com>
+Date:   Wed Dec 24 10:12:41 2025 -0300
+
+    Implementação JPA e POSTGRE
+
+[33mcommit e322ff1e698812fd8ed1bf8123c3f77535949df8[m
+Author: Marcelo Pena <coder.pena@gmail.com>
+Date:   Mon Dec 22 20:06:48 2025 -0300
+
+    Ajuste no título do README.
+
+[33mcommit 512053af035b36ef13a9bd660a3894f4f193fa7c[m
+Author: Marcelo Pena <coder.pena@gmail.com>
+Date:   Mon Dec 22 20:05:46 2025 -0300
+
+    Ajustes no README.
+
+[33mcommit 218fa751975ccae35ff22d787f096f7770449b57[m
+Author: Marcelo Pena <coder.pena@gmail.com>
+Date:   Mon Dec 22 20:04:06 2025 -0300
+
+    Primeiro commit.
