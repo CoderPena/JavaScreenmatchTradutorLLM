@@ -25,7 +25,7 @@ public class Serie {
     private String porter;
     private String atores;
 
-    @OneToMany(mappedBy = "serie")
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episodio> episodios = new ArrayList<>();
 
     public Serie() {
@@ -41,6 +41,15 @@ public class Serie {
         this.porter = dadosSerie.porter();
 //        this.sinopse = dadosSerie.sinopse();
         this.sinopse = ConsultaTradutor.obterTraducao(dadosSerie.sinopse()).trim();
+    }
+
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        episodios.forEach(e -> e.setSerie(this));
+        this.episodios = episodios;
     }
 
     public long getId() {
@@ -113,8 +122,9 @@ public class Serie {
                 ", titulo='" + titulo + '\'' +
                 ", totalTemporadas=" + totalTemporadas +
                 ", avaliacao=" + avaliacao + '\'' +
-                ", sinopse='" + sinopse + '\'' +
+                ", atores=" + atores + '\'' +
                 ", porter='" + porter + '\'' +
-                ", atores='" + atores;
+                ", sinopse='" + sinopse + '\'' +
+                ", episodios='" + episodios + '\'';
     }
 }
