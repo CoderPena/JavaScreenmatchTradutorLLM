@@ -9,6 +9,7 @@ import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,9 @@ public class Principal {
                 1 - Buscar séries
                 2 - Buscar episódios
                 3 - Listar seŕies buscadas
+                4 - Buscar série por nome
+                5 - Buscar sério por ator
+                6 - TOP 5 séries
                 
                 0 - Sair                                 
                 """;
@@ -54,6 +58,15 @@ public class Principal {
                     break;
                 case 3:
                     listarSeriesBuscadas();
+                    break;
+                case 4:
+                    buscarSeriePorTitulo();
+                    break;
+                case 5:
+                    buscarSeriePorAtor();
+                    break;
+                case 6:
+                    buscarSerieTop5();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -87,9 +100,11 @@ public class Principal {
         System.out.println("Digite o nome da séria: ");
         String nomeSerie = leitura.nextLine();
 
-        Optional<Serie> serieBuscada = series.stream()
-                .filter(s -> s.getTitulo().toLowerCase().contains(nomeSerie.toLowerCase()))
-                .findFirst();
+//        Optional<Serie> serieBuscada = series.stream()
+//                .filter(s -> s.getTitulo().toLowerCase().contains(nomeSerie.toLowerCase()))
+//                .findFirst();
+        Optional<Serie> serieBuscada = repositorio.findByTituloContainingIgnoreCase(nomeSerie);
+
         if (serieBuscada.isPresent()) {
             var serieEncontrada = serieBuscada.get();
             List<DadosTemporada> temporadas = new ArrayList<>();
@@ -126,4 +141,37 @@ public class Principal {
 
 //        "A group of ambitious misfits try to escape the harsh realities of high school by joining a glee club headed by a passionate Spanish teacher."
     }
+
+    private void buscarSeriePorTitulo() {
+        System.out.println("Digite o nome da série: ");
+        var nomeSerie = leitura.nextLine();
+        Optional <Serie> serieBuscada = repositorio.findByTituloContainingIgnoreCase(nomeSerie);
+        if (serieBuscada.isPresent()){
+            System.out.println("Dados da série: " + serieBuscada.get());
+        } else {
+            System.out.println("Série não encontrada");
+        }
+    }
+
+    private void buscarSeriePorAtor() {
+        System.out.println("Digite o nome do ator: ");
+        var nomeAtor = leitura.nextLine();
+        System.out.println("Digite a menor avaliação da série: ");
+        var avaliacao = leitura.nextDouble();
+
+//        List <Serie> seriesEncontradas = repositorio.findByAtoresContainingIgnoreCase(nomeAtor);
+        List <Serie> seriesEncontradas = repositorio.findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(nomeAtor, avaliacao);
+        System.out.println("Séries em que " + nomeAtor + " trabalhou:");
+        seriesEncontradas.stream()
+                        .forEach(s -> System.out.println(s.getTitulo() + " - " + s.getAvaliacao()));
+
+    }
+
+    private void buscarSerieTop5() {
+        List <Serie> seriesEncontradas = repositorio.findTop5ByOrderByAvaliacaoDesc();
+        seriesEncontradas.stream()
+                .forEach(s -> System.out.println(s.getTitulo() + " - " + s.getAvaliacao()));
+    }
+
+
 }
