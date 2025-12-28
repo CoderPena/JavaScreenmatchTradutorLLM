@@ -1,9 +1,6 @@
 package br.com.alura.screenmatch.principal;
 
-import br.com.alura.screenmatch.model.DadosSerie;
-import br.com.alura.screenmatch.model.DadosTemporada;
-import br.com.alura.screenmatch.model.Episodio;
-import br.com.alura.screenmatch.model.Serie;
+import br.com.alura.screenmatch.model.*;
 import br.com.alura.screenmatch.repository.SerieRepository;
 import br.com.alura.screenmatch.service.ConsumoApi;
 import br.com.alura.screenmatch.service.ConverteDados;
@@ -37,8 +34,9 @@ public class Principal {
                 2 - Buscar episódios
                 3 - Listar seŕies buscadas
                 4 - Buscar série por nome
-                5 - Buscar sério por ator
+                5 - Buscar séries por ator
                 6 - TOP 5 séries
+                7 - Buscar séreis por categoria
                 
                 0 - Sair                                 
                 """;
@@ -66,7 +64,10 @@ public class Principal {
                     buscarSeriePorAtor();
                     break;
                 case 6:
-                    buscarSerieTop5();
+                    buscarSeriesTop5();
+                    break;
+                case 7:
+                    buscarSeriesPorCategoria();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -167,11 +168,19 @@ public class Principal {
 
     }
 
-    private void buscarSerieTop5() {
+    private void buscarSeriesTop5() {
         List <Serie> seriesEncontradas = repositorio.findTop5ByOrderByAvaliacaoDesc();
         seriesEncontradas.stream()
                 .forEach(s -> System.out.println(s.getTitulo() + " - " + s.getAvaliacao()));
     }
 
+    private void buscarSeriesPorCategoria() {
+        System.out.println("Digite a categoria: ");
+        var categoriaPortugues = leitura.nextLine();
+        Categoria categoria = Categoria.fromPortugues(categoriaPortugues);
+        List<Serie> seriesPorCategoria = repositorio.findByGenero(categoria);
+        System.out.println("Sérias da categoria " + categoria);
+        seriesPorCategoria.forEach(System.out::println);
+    }
 
 }
